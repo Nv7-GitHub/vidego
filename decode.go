@@ -142,17 +142,15 @@ func (d *Decoder) GetNextFrame() (bool, []image.Image, error) {
 }
 
 func (d *Decoder) Free() {
+	for i := 0; i < d.ctx.StreamsCnt(); i++ {
+		st, _ := d.ctx.GetStream(i)
+		st.CodecCtx().Free()
+		st.Free()
+	}
 	d.stream.Free()
 	d.ctx.Free()
 	d.cc.Free()
 	gmf.Release(d.cc)
 	d.ist.Free()
 	d.swsctx.Free()
-	if d.ctx != nil {
-		for i := 0; i < d.ctx.StreamsCnt(); i++ {
-			st, _ := d.ctx.GetStream(i)
-			st.CodecCtx().Free()
-			st.Free()
-		}
-	}
 }
