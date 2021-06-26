@@ -21,7 +21,7 @@ func NewDecoder(path string) (*Decoder, error) {
 	}
 
 	// Get codec
-	codec, err := gmf.FindEncoder(gmf.AV_CODEC_ID_RAWVIDEO)
+	codec, err := gmf.FindEncoder(gmf.AV_CODEC_ID_H264)
 	if err != nil {
 		return nil, err
 	}
