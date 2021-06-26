@@ -21,7 +21,7 @@ func NewDecoder(path string) (*Decoder, error) {
 	}
 
 	// Get codec
-	codec, err := gmf.FindEncoder(gmf.AV_CODEC_ID_H264)
+	codec, err := gmf.FindEncoder(gmf.AV_CODEC_ID_RAWVIDEO)
 	if err != nil {
 		return nil, err
 	}
@@ -29,7 +29,7 @@ func NewDecoder(path string) (*Decoder, error) {
 	// Set up codec context
 	cc := gmf.NewCodecCtx(codec)
 	cc.SetTimeBase(gmf.AVR{Num: 1, Den: 1})
-	cc.SetPixFmt(gmf.AV_PIX_FMT_YUV420P).SetWidth(stream.CodecCtx().Width()).SetHeight(stream.CodecCtx().Height())
+	cc.SetPixFmt(gmf.AV_PIX_FMT_RGBA).SetWidth(stream.CodecCtx().Width()).SetHeight(stream.CodecCtx().Height())
 	if codec.IsExperimental() {
 		cc.SetStrictCompliance(gmf.FF_COMPLIANCE_EXPERIMENTAL)
 	}
