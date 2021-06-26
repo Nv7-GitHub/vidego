@@ -134,7 +134,7 @@ func (d *Decoder) GetNextFrame() (bool, []image.Image, error) {
 	}
 
 	// Cleanup
-	for i, _ := range d.frames {
+	for i := range d.frames {
 		d.frames[i].Free()
 	}
 
