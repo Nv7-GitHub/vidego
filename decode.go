@@ -148,9 +148,11 @@ func (d *Decoder) Free() {
 	gmf.Release(d.cc)
 	d.ist.Free()
 	d.swsctx.Free()
-	for i := 0; i < d.ctx.StreamsCnt(); i++ {
-		st, _ := d.ctx.GetStream(i)
-		st.CodecCtx().Free()
-		st.Free()
+	if d.ctx != nil {
+		for i := 0; i < d.ctx.StreamsCnt(); i++ {
+			st, _ := d.ctx.GetStream(i)
+			st.CodecCtx().Free()
+			st.Free()
+		}
 	}
 }
